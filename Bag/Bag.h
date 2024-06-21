@@ -41,13 +41,13 @@ class DataStructures::Bag {
         void Add(T element);
 
         // Pulls an item out of the bag. Places it back into the bag after.
-        T Pull();
+        T Pull() const;
 
         // Pull an item from the bag, and then remove it from the bag.
         T Remove();
 
         // Counts how many items total exist in the bag.
-        int Count();
+        int Count() const;
 
         // Clears the bag, deleting all data.
         // Note that if the Bag is storing pointers, the memory pointed to by each element will not be deleted.
@@ -58,7 +58,10 @@ class DataStructures::Bag {
         void Load(char separator, std::istream& input, T(parseKey)(std::string));
 
         // Save into a file.
-        void Save(char separator, std::ostream& output, std::string(parseKey)(T));
+        void Save(char separator, std::ostream& output, std::string(parseKey)(T)) const;
+
+        // Convert into a string.
+        std::string ToString(std::string(parseKey)(T)) const;
 };
 
 #include "Bag.hxx"

@@ -6,6 +6,7 @@
 #include <unordered_map>
 #include <iostream>
 #include <string>
+#include <sstream>
 
 // Constructor - Initialize the underlying map
 template <typename T>
@@ -24,13 +25,13 @@ void DataStructures::Bag<T>::Add(T element) {
 
 // Returns the count of all items in the bag
 template <typename T>
-int DataStructures::Bag<T>::Count() {
+int DataStructures::Bag<T>::Count() const {
     return this->Counter;
 }
 
 // Pull a random item from the bag, placing it back in after.
 template <typename T>
-T DataStructures::Bag<T>::Pull() {
+T DataStructures::Bag<T>::Pull() const {
     if (this->Counter == 0) {
         throw std::runtime_error("Could not pull an item; bag is empty");
     }
@@ -119,9 +120,19 @@ void DataStructures::Bag<T>::Load(char separator, std::istream& input, T(parseKe
 
 // Saves the bag contents to an output stream.
 template <typename T>
-void DataStructures::Bag<T>::Save(char separator, std::ostream& output, std::string(parseKey)(T)) {
+void DataStructures::Bag<T>::Save(char separator, std::ostream& output, std::string(parseKey)(T)) const {
     for (const auto& kv: this->Contents) {
         output << parseKey(kv.first) << separator << kv.second << std::endl;
     }
     output << std::endl;
+}
+
+template <typename T>
+std::string DataStructures::Bag<T>::ToString(std::string(parseKey)(T)) const {
+    std::stringstream str;
+    for (const auto& kv: this->Contents) {
+        str << parseKey(kv.first) << "=" << kv.second << "; ";
+    }
+
+    return str.str();
 }
