@@ -16,6 +16,8 @@
 #include <unordered_map>
 #include <iostream>
 
+#define COUNTER_TYPE unsigned short
+
 #ifndef BAG_H
 #define BAG_H
 
@@ -30,7 +32,7 @@ namespace DataStructures {
 template <typename T>
 class DataStructures::Bag {
     private:
-        std::unordered_map<T, short> Contents;
+        std::unordered_map<T, COUNTER_TYPE> Contents;
         int Counter;
     public:
         Bag();
