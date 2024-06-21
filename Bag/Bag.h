@@ -14,6 +14,7 @@
 */
 
 #include <unordered_map>
+#include <iostream>
 
 #ifndef BAG_H
 #define BAG_H
@@ -50,6 +51,12 @@ class DataStructures::Bag {
         // Note that if the Bag is storing pointers, the memory pointed to by each element will not be deleted.
         // This memory will need to be freed separately.
         void Clear();
+
+        // Load from a file.
+        void Load(char separator, std::istream& input, T(parseKey)(std::string));
+
+        // Save into a file.
+        void Save(char separator, std::ostream& output, std::string(parseKey)(T));
 };
 
 #include "Bag.hxx"
