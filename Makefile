@@ -7,7 +7,7 @@ test: Build/test.o make-test
 .PHONY: all test
 
 # Data Structure compilers
-Build/test.o: test.cpp
+Build/test.o: test.cpp Bag/Bag.h Bag/Bag.hxx
 	g++ -Wall -g -IBag -c test.cpp -o Build/test.o
 
 # Test Compiler
