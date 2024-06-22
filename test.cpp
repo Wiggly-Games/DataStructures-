@@ -27,14 +27,14 @@ void CheckBag(){
     // Save to file
     std::ofstream file;
     file.open("test/bag.txt");
-    bag.Save('=', file, toString);
+    bag.Save(file, toString);
     file.close();
 
     // Load to file
     DataStructures::Bag<int> bag2;
     std::ifstream inputFile;
     inputFile.open("test/bag.txt");
-    bag2.Load('=', inputFile, parseStr);
+    bag2.Load(inputFile, parseStr);
     inputFile.close();
 
     for (int i = bag2.Count(); i > 0; i--) {

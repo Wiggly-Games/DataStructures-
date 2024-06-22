@@ -88,27 +88,27 @@ void DataStructures::Bag<T>::Clear() {
 
 // Reads the bag contents from an input stream.
 template <typename T>
-void DataStructures::Bag<T>::Load(char separator, std::istream& input, T(parseKey)(std::string)) {
-    std::string str;
+void DataStructures::Bag<T>::Load(std::istream& input, T(parseKey)(std::string)) {
+    std::string keyStr, valueStr;
     short counter;
     while (true) {
-        std::getline(input, str);
-        std::cout << str << std::endl;
+        std::getline(input, keyStr);
 
         // Stop once we hit an empty line - end of the bag
-        if (str == "") {
+        if (keyStr == "") {
             break;
         }
 
-        // Find the position where the string is separated
-        // This tells us where to find the key vs. value
-        size_t pos = str.find(separator);
-        T key = parseKey(str.substr(0, pos));
-        int value = std::stoi(str.substr(pos + 1));
+        // If there's a key, there should also be a value. Value will be the next line.
+        std::getline(input, valueStr);
+
+        // Parse the key/value strings into their actual values
+        T key = parseKey(keyStr);
+        int value = std::stoi(valueStr);
 
         // Throw an error if we've already seen this value before; each value should only be added once
         if (this->Contents[key] != 0) {
-            throw std::runtime_error(std::string("Loading failed; attempted to load duplicate of ").append(str.substr(0, pos)).c_str());
+            throw std::runtime_error(std::string("Loading failed; attempted to load duplicate of ").append(keyStr).c_str());
         }
 
         // Add it to our map, and increase how many items we have in the bag
@@ -120,9 +120,9 @@ void DataStructures::Bag<T>::Load(char separator, std::istream& input, T(parseKe
 
 // Saves the bag contents to an output stream.
 template <typename T>
-void DataStructures::Bag<T>::Save(char separator, std::ostream& output, std::string(parseKey)(T)) const {
+void DataStructures::Bag<T>::Save(std::ostream& output, std::string(parseKey)(T)) const {
     for (const auto& kv: this->Contents) {
-        output << parseKey(kv.first) << separator << kv.second << std::endl;
+        output << parseKey(kv.first) << std::endl << kv.second << std::endl;
     }
     output << std::endl;
 }

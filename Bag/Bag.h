@@ -55,10 +55,10 @@ class DataStructures::Bag {
         void Clear();
 
         // Load from a file.
-        void Load(char separator, std::istream& input, T(parseKey)(std::string));
+        void Load(std::istream& input, T(parseKey)(std::string));
 
         // Save into a file.
-        void Save(char separator, std::ostream& output, std::string(parseKey)(T)) const;
+        void Save(std::ostream& output, std::string(parseKey)(T)) const;
 
         // Convert into a string.
         std::string ToString(std::string(parseKey)(T)) const;
